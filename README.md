@@ -8,8 +8,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![SGLang](https://img.shields.io/badge/SGLang-patch-green.svg)](https://github.com/sgl-project/sglang)
 
-**Yushi Bai, Qian Dong, Ting Jiang, Xin Lv, Zhengxiao Du, Aohan Zeng, Jie Tang, Juanzi Li**
-
 *Tsinghua University & Z.ai*
 
 </div>
