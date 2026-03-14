@@ -1,4 +1,3 @@
-[proxychains] DLL init: proxychains-ng 4.17
 diff --git a/python/sglang/srt/models/deepseek_common/attention_forward_methods/forward_mla.py b/python/sglang/srt/models/deepseek_common/attention_forward_methods/forward_mla.py
 index 9eca43ce..a4d4ca4e 100644
 --- a/python/sglang/srt/models/deepseek_common/attention_forward_methods/forward_mla.py
