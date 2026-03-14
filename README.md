@@ -7,6 +7,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2603.12201-b31b1b.svg)](https://arxiv.org/abs/2603.12201)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![SGLang](https://img.shields.io/badge/SGLang-patch-green.svg)](https://github.com/sgl-project/sglang)
+[![vLLM](https://img.shields.io/badge/vLLM-patch-green.svg)](https://github.com/vllm-project/vllm)
 
 *Tsinghua University & Z.ai*
 
@@ -14,7 +15,7 @@
 
 ---
 
-This repository provides a patch for [SGLang](https://github.com/sgl-project/sglang) that enables **IndexCache** inference acceleration for models using DeepSeek Sparse Attention (DSA), including **DeepSeek-V3.2** and **GLM-5**.
+This repository provides a patch for [SGLang](https://github.com/sgl-project/sglang) and [vLLM](https://github.com/vllm-project/vllm) that enables **IndexCache** inference acceleration for models using DeepSeek Sparse Attention (DSA), including **DeepSeek-V3.2** and **GLM-5**.
 
 > **TL;DR:** IndexCache eliminates up to 75% of indexer computations in DSA through cross-layer index reuse — achieving up to **1.82× prefill speedup** and **1.48× decode speedup** with negligible quality degradation. One `if/else` branch, zero extra GPU memory.
 
@@ -82,7 +83,7 @@ Both retain only **1/4 of indexers** with negligible quality degradation.
 
 ## 🚀 Quick Start
 
-### Step 1: Clone SGLang
+### Step 1: Clone SGLang / vLLM
 
 ```bash
 git clone https://github.com/sgl-project/sglang.git
@@ -92,15 +93,22 @@ git checkout b638b25b
 
 > This patch is built and tested against commit [`b638b25b`](https://github.com/sgl-project/sglang/commit/b638b25b). It may apply cleanly to newer versions, but if you encounter conflicts, use this specific commit.
 
+For vLLM:
+```bash
+git clone https://github.com/vllm-project/vllm.git
+cd vllm
+git checkout 4508532fb
+```
+
 ### Step 2: Apply the patch
 
 ```bash
-git apply /path/to/indexcache.patch
+git apply /path/to/indexcache.patch # /path/to/indexcache_vllm.patch for vllm patch
 ```
 
 ### Step 3: Launch with IndexCache
 
-Configure via `--json-model-override-args`. Two options:
+Configure via `--json-model-override-args` for SGLang or `--hf-overrides` for vLLM. Two options (take SGLang for example):
 
 #### Option A — Uniform interleaving
 
@@ -150,7 +158,7 @@ Each character maps to one DSA layer: `F` = Full (runs indexer), `S` = Shared (r
 | DeepSeek-V3.2 | `DeepseekV32ForCausalLM` | ✅ |
 | GLM-5 (744B) | `GlmMoeDsaForCausalLM` | ✅ |
 
-Any model using DSA indexer through SGLang's `DeepseekV2AttentionMLA` benefits from this patch.
+Any model using DSA indexer benefits from this patch.
 
 ---
 
